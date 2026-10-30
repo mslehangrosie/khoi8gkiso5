@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Kiểm Tra Tiếng Anh - Ms Lê Hằng English</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts: Quicksand -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        /* Gradient Background Dynamic Movement */
+        body {
+            background: linear-gradient(-45deg, #8854C0, #FDCB6E, #00C9A7, #E84393, #00CEC9);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* SVG Floating Pattern Overlay */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.25;
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40l2.83 2.83-1.41 1.41L0 41.41l-2.83 2.83-1.41-1.41L-1.41 40l-2.83-2.83 1.41-1.41L0 38.59zM40 78.59l2.83-2.83 1.41 1.41L41.41 80l2.83 2.83-1.41 1.41L40 81.41l-2.83 2.83-1.41-1.41L38.59 80l-2.83-2.83 1.41-1.41L40 78.59zM40 38.59l2.83-2.83 1.41 1.41L41.41 40l2.83 2.83-1.41 1.41L40 41.41l-2.83 2.83-1.41-1.41L38.59 40l-2.83-2.83 1.41-1.41L40 38.59zM20 18.59l2.83-2.83 1.41 1.41L22.83 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59zM60 18.59l2.83-2.83 1.41 1.41L62.83 20l2.83 2.83-1.41 1.41L60 21.41l-2.83 2.83-1.41-1.41L58.59 20l-2.83-2.83 1.41-1.41L60 18.59zM20 58.59l2.83-2.83 1.41 1.41L22.83 60l2.83 2.83-1.41 1.41L20 61.41l-2.83 2.83-1.41-1.41L18.59 60l-2.83-2.83 1.41-1.41L20 58.59zM60 58.59l2.83-2.83 1.41 1.41L62.83 60l2.83 2.83-1.41 1.41L60 61.41l-2.83 2.83-1.41-1.41L58.59 60l-2.83-2.83 1.41-1.41L60 58.59z'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* 3D Gamified Buttons */
+        .btn-option {
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 6px 0 #CBD5E1;
+            transform: translateY(0);
+            border-radius: 18px;
+        }
+
+        .btn-option:hover:not(:disabled) {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 9px 0 #CBD5E1;
+        }
+
+        .btn-option:active:not(:disabled) {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #CBD5E1;
+        }
+
+        /* Correct & Wrong Styles */
+        .btn-correct {
+            background-color: #00D26A !important;
+            color: white !important;
+            border-color: #00B159 !important;
+            box-shadow: 0 6px 0 #008F47 !important;
+        }
+
+        .btn-wrong {
+            background-color: #FF4757 !important;
+            color: white !important;
+            border-color: #E0303F !important;
+            box-shadow: 0 6px 0 #B81D2B !important;
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        /* Underline styling for phonetics */
+        u {
+            text-decoration-color: #FF4757;
+            text-decoration-thickness: 3px;
+            font-weight: 800;
+            color: #D63031;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8854C0;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="py-8 px-4 flex flex-col items-center justify-center">
+
+    <div class="bg-pattern"></div>
+
+    <!-- MAIN CONTAINER CARD -->
+    <div class="relative z-10 w-full max-w-4xl bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-6 md:p-10 border-4 border-white/80 my-4">
+        
+        <!-- HEADER SECTION -->
+        <div class="text-center mb-6">
+            <span class="bg-purple-100 text-purple-800 text-sm md:text-base font-bold px-4 py-1.5 rounded-full inline-block mb-2 shadow-sm border border-purple-200">
+                👩‍🏫 Giáo viên tạo: Ms Lê Hằng English
+            </span>
+            <h1 class="text-2xl md:text-3xl font-extrabold text-gray-800 tracking-tight">
+                BÀI KIỂM TRA TRẮC NGHIỆM TIẾNG ANH TỔNG HỢP
+            </h1>
+            <p class="text-xs md:text-sm text-pink-600 font-bold mt-1 bg-pink-50 py-1.5 px-3 rounded-lg inline-block border border-pink-200">
+                📞 Đăng kí học tiếng Anh 1-12, IELTS vui lòng liên hệ Ms Lê Hằng | Zalo: <span class="underline">0584 965 348</span>
+            </p>
+        </div>
+
+        <!-- WARNING NOTICE BOX -->
+        <div class="bg-gradient-to-r from-amber-100 via-orange-100 to-amber-100 border-2 border-amber-400 text-amber-900 rounded-2xl p-4 mb-8 shadow-md">
+            <div class="flex items-center justify-center gap-2 font-black text-base md:text-lg text-amber-800 mb-1">
+                <span>⚠️</span> LỜI NHẮC CỰC KỲ QUAN TRỌNG <span>⚠️</span>
+            </div>
+            <p class="text-xs md:text-sm font-bold text-center leading-relaxed">
+                Chỉ có <span class="text-red-600 underline">đọc kỹ giải thích ngay sau mỗi câu</span>, sau đó ghi lại từ vựng/cấu trúc mới vào vở để học thì mới thực sự giỏi lên.<br>
+                Làm cho xong mà không đọc giải thích hay đọc qua loa không ghi chép thì chỉ tốn thời gian vô ích!<br>
+                <span class="text-purple-700 italic">Kéo tới đâu, làm tới đó! *</span>
+            </p>
+        </div>
+
+        <!-- PROGRESS BAR & STATS -->
+        <div class="sticky top-2 z-20 bg-white/90 backdrop-blur-sm p-3 rounded-2xl shadow-md border border-gray-100 mb-8 flex items-center justify-between gap-4">
+            <div class="flex-1 bg-gray-200 rounded-full h-4 overflow-hidden p-0.5 border border-gray-300">
+                <div id="progress-bar" class="bg-gradient-to-r from-green-400 to-emerald-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+            <div class="text-sm font-extrabold text-purple-900 whitespace-nowrap bg-purple-100 px-3 py-1 rounded-xl">
+                Đã làm: <span id="answered-count" class="text-purple-700">0</span>/45
+            </div>
+        </div>
+
+        <!-- QUESTIONS LIST CONTAINER -->
+        <div id="questions-container" class="space-y-8">
+            <!-- Questions dynamically populated by JS -->
+        </div>
+
+        <!-- SUBMIT BUTTON AREA -->
+        <div class="mt-10 text-center pt-6 border-t-2 border-gray-100">
+            <button id="submit-btn" onclick="submitQuiz()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-extrabold text-lg md:text-xl py-4 px-10 rounded-2xl shadow-lg hover:shadow-xl transition transform active:scale-95 border-b-4 border-indigo-900">
+                🎯 NỘP BÀI THI & XEM KẾT QUẢ
+            </button>
+        </div>
+    </div>
+
+    <!-- RESULT MODAL POPUP -->
+    <div id="result-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 text-center shadow-2xl transform transition-all scale-95 border-4 border-purple-400 relative">
+            <div class="text-5xl mb-3" id="modal-emoji">🎉</div>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800 mb-2">KẾT QUẢ BÀI THI</h2>
+            
+            <div class="my-4 p-4 bg-purple-50 rounded-2xl border border-purple-100">
+                <p class="text-lg font-bold text-gray-700">Số câu trả lời đúng:</p>
+                <p class="text-4xl font-black text-purple-600 my-1"><span id="score-text">0</span> / 45</p>
+                <p class="text-sm font-semibold text-gray-500" id="percentage-text">(0%)</p>
+            </div>
+
+            <div class="p-4 bg-amber-50 border border-amber-200 rounded-2xl text-left mb-6">
+                <p class="font-extrabold text-amber-900 text-sm md:text-base mb-1">💬 Nhận xét từ Ms Lê Hằng:</p>
+                <p id="feedback-text" class="text-xs md:text-sm font-bold text-amber-800 leading-relaxed"></p>
+            </div>
+
+            <button onclick="closeModal()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-black text-lg py-3 rounded-xl shadow-md transition">
+                Xem lại bài làm
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // WEB AUDIO API SOUND GENERATOR
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playDingSound() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+            osc.frequency.exponentialRampToValueAtTime(1046.50, audioCtx.currentTime + 0.3); // C6
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
+        }
+
+        function playWrongSound() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(220, audioCtx.currentTime); // A3
+            osc.frequency.setValueAtTime(164.81, audioCtx.currentTime + 0.15); // E3
+            osc.frequency.setValueAtTime(130.81, audioCtx.currentTime + 0.3); // C3
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.5);
+        }
+
+        // CONFETTI EFFECT
+        function triggerConfetti() {
+            confetti({
+                particleCount: 50,
+                spread: 60,
+                origin: { y: 0.8 }
+            });
+        }
+
+        // 45 FULL QUESTIONS DATA WITH DETAILED 4-STEP EXPLANATIONS
+        const quizData = [
+            // I. Phonetics (1-4)
+            {
+                id: 1,
+                section: "I. PHONETICS - Phát âm",
+                question: "Choose the word which has a different sound in the part underlined:",
+                options: [
+                    { key: "A", text: "g<u>oo</u>d", isCorrect: false },
+                    { key: "B", text: "c<u>oo</u>l", isCorrect: true },
+                    { key: "C", text: "f<u>oo</u>d", isCorrect: false },
+                    { key: "D", text: "c<u>oo</u>k", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Chọn từ có phần gạch chân phát âm khác với các từ còn lại.",
+                    step2: "Phân tích phát âm 4 đáp án:\nA. good /ɡʊd/ (nguyên âm /ʊ/ ngắn)\nB. cool /kuːl/ (nguyên âm /uː/ dài)\nC. foot /fʊt/ (nguyên âm /ʊ/ ngắn)\nD. cook /kʊk/ (nguyên âm /ʊ/ ngắn)",
+                    step3: "Tại sao B đúng: Từ 'cool' có âm 'oo' phát âm là /uː/ (dài), khác với 3 từ còn lại phát âm là /ʊ/ (ngắn).",
+                    step4: "Tại sao A, C, D sai: Cả 3 từ này đều có âm 'oo' phát âm chuẩn là /ʊ/ ngắn."
+                }
+            },
+            {
+                id: 2,
+                section: "I. PHONETICS - Phát âm",
+                question: "Choose the word which has a different sound in the part underlined:",
+                options: [
+                    { key: "A", text: "vill<u>a</u>ge", isCorrect: false },
+                    { key: "B", text: "buff<u>a</u>lo", isCorrect: true },
+                    { key: "C", text: "cott<u>a</u>ge", isCorrect: false },
+                    { key: "D", text: "short<u>a</u>ge", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Chọn từ có phần gạch chân phát âm khác với các từ còn lại.",
+                    step2: "Phân tích phát âm 4 đáp án:\nA. village /ˈvɪl.ɪdʒ/ (âm /ɪ/)\nB. buffalo /ˈbʌf.ə.loʊ/ (âm /ə/)\nC. cottage /ˈkɒt.ɪdʒ/ (âm /ɪ/)\nD. shortage /ˈʃɔː.tɪdʒ/ (âm /ɪ/)",
+                    step3: "Tại sao B đúng: Chữ 'a' trong 'buffalo' phát âm là âm schwa /ə/, trong khi ở 3 từ còn lại hậu tố '-age' chứa chữ 'a' phát âm là /ɪ/.",
+                    step4: "Tại sao A, C, D sai: Các từ này có chữ 'a' phát âm là /ɪ/."
+                }
+            },
+            {
+                id: 3,
+                section: "I. PHONETICS - Phát âm",
+                question: "Choose the word which has a different sound in the part underlined:",
+                options: [
+                    { key: "A", text: "av<u>oi</u>d", isCorrect: false },
+                    { key: "B", text: "d<u>oi</u>ng", isCorrect: true },
+                    { key: "C", text: "ch<u>oi</u>ce", isCorrect: false },
+                    { key: "D", text: "j<u>oi</u>n", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Chọn từ có phần gạch chân phát âm khác với các từ còn lại.",
+                    step2: "Phân tích phát âm 4 đáp án:\nA. avoid /əˈvɔɪd/ (nguyên âm đôi /ɔɪ/)\nB. doing /ˈduː.ɪŋ/ (kết hợp âm /uː/ và /ɪ/)\nC. choice /tʃɔɪs/ (nguyên âm đôi /ɔɪ/)\nD. join /dʒɔɪn/ (nguyên âm đôi /ɔɪ/)",
+                    step3: "Tại sao B đúng: Trong 'doing', 'oi' tách thành 2 âm tiết riêng biệt (/uː/ và /ɪ/), không tạo thành nguyên âm đôi /ɔɪ/ như các từ khác.",
+                    step4: "Tại sao A, C, D sai: Đều chứa nguyên âm đôi /ɔɪ/."
+                }
+            },
+            {
+                id: 4,
+                section: "I. PHONETICS - Phát âm",
+                question: "Choose the word which has a different sound in the part underlined:",
+                options: [
+                    { key: "A", text: "h<u>e</u>rd", isCorrect: true },
+                    { key: "B", text: "h<u>a</u>rvest", isCorrect: false },
+                    { key: "C", text: "m<u>o</u>dest", isCorrect: false },
+                    { key: "D", text: "<u>e</u>lectricity", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Chọn từ có phần gạch chân phát âm/nguyên âm khác.",
+                    step2: "Phân tích 4 đáp án:\nA. herd /hɜːd/ (âm nguyên âm dài /ɜː/)\nB. harvest /ˈhɑː.vɪst/ (âm /ɑː/)\nC. modest /ˈmɒd.ɪst/ (âm /ɒ/)\nD. electricity /ɪˌlekˈtrɪs.ə.ti/ (âm /ɪ/)",
+                    step3: "Tại sao A đúng: 'herd' chứa âm nguyên âm dài uốn lưỡi /ɜː/, tạo sự phân biệt rõ ràng về trường âm trong nhóm nguyên âm ngắn/dài.",
+                    step4: "Tại sao B, C, D sai: Phát âm các nguyên âm khác biệt hoàn toàn về vị trí cấu âm."
+                }
+            },
+
+            // II. Stress (5-8)
+            {
+                id: 5,
+                section: "II. STRESS - Trọng âm",
+                question: "Choose the word which has different stress pattern from the others:",
+                options: [
+                    { key: "A", text: "leisure", isCorrect: false },
+                    { key: "B", text: "prefer", isCorrect: true },
+                    { key: "C", text: "puzzle", isCorrect: false },
+                    { key: "D", text: "pressure", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Chọn từ có trọng âm chính rơi vào vị trí khác với các từ còn lại.",
+                    step2: "Phân tích trọng âm 4 đáp án:\nA. leisure /ˈleʒ.ər/ (Trọng âm 1)\nB. prefer /prɪˈfɜːr/ (Trọng âm 2)\nC. puzzle /ˈpʌz.əl/ (Trọng âm 1)\nD. pressure /ˈpreʃ.ər/ (Trọng âm 1)",
+                    step3: "Tại sao B đúng: 'prefer' là động từ 2 âm tiết có trọng âm rơi vào âm tiết thứ 2.",
+                    step4: "Tại sao A, C, D sai: Các danh từ/tính từ 2 âm tiết này có trọng âm rơi vào âm tiết thứ 1."
+                }
+            },
+            {
+                id: 6,
+                section: "II. STRESS - Trọng âm",
+                question: "Choose the word which has different stress pattern from the others:",
+                options: [
+                    { key: "A", text: "harvest", isCorrect: false },
+                    { key: "B", text: "support", isCorrect: true },
+                    { key: "C", text: "rural", isCorrect: false },
+                    { key: "D", text: "orchard", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Chọn từ có trọng âm chính rơi vào vị trí khác.",
+                    step2: "Phân tích trọng âm 4 đáp án:\nA. harvest /ˈhɑː.vɪst/ (Trọng âm 1)\nB. support /səˈpɔːt/ (Trọng âm 2)\nC. rural /ˈrʊə.rəl/ (Trọng âm 1)\nD. orchard /ˈɔː.tʃəd/ (Trọng âm 1)",
+                    step3: "Tại sao B đúng: 'support' nhấn trọng âm ở âm tiết thứ 2.",
+                    step4: "Tại sao A, C, D sai: Đều có trọng âm rơi vào âm tiết thứ 1."
+                }
+            },
+            {
+                id: 7,
+                section: "II. STRESS - Trọng âm",
+                question: "Choose the word which has different stress pattern from the others:",
+                options: [
+                    { key: "A", text: "detest", isCorrect: false },
+                    { key: "B", text: "enjoy", isCorrect: false },
+                    { key: "C", text: "healthy", isCorrect: true },
+                    { key: "D", text: "collect", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Chọn từ có trọng âm vị trí khác.",
+                    step2: "Phân tích trọng âm 4 đáp án:\nA. detest /dɪˈtest/ (Trọng âm 2)\nB. enjoy /ɪnˈdʒɔɪ/ (Trọng âm 2)\nC. healthy /ˈhel.θi/ (Trọng âm 1)\nD. collect /kəˈlekt/ (Trọng âm 2)",
+                    step3: "Tại sao C đúng: 'healthy' là tính từ 2 âm tiết có trọng âm 1.",
+                    step4: "Tại sao A, B, D sai: Đều là động từ 2 âm tiết có trọng âm rơi vào âm tiết thứ 2."
+                }
+            },
+            {
+                id: 8,
+                section: "II. STRESS - Trọng âm",
+                question: "Choose the word which has different stress pattern from the others:",
+                options: [
+                    { key: "A", text: "village", isCorrect: false },
+                    { key: "B", text: "enter", isCorrect: false },
+                    { key: "C", text: "bamboo", isCorrect: true },
+                    { key: "D", text: "expert", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Chọn từ có trọng âm vị trí khác.",
+                    step2: "Phân tích trọng âm 4 đáp án:\nA. village /ˈvɪl.ɪdʒ/ (Trọng âm 1)\nB. enter /ˈen.tər/ (Trọng âm 1)\nC. bamboo /ˌbæmˈbuː/ (Trọng âm 2)\nD. expert /ˈek.spɜːt/ (Trọng âm 1)",
+                    step3: "Tại sao C đúng: 'bamboo' nhấn trọng âm vào âm tiết thứ 2.",
+                    step4: "Tại sao A, B, D sai: Đều có trọng âm rơi vào âm tiết thứ 1."
+                }
+            },
+
+            // III. Multiple Choice Grammar & Vocabulary (9-20)
+            {
+                id: 9,
+                section: "III. MULTIPLE CHOICE - Ngữ pháp & Từ vựng",
+                question: "Lan is ______ gardening in her free time.",
+                options: [
+                    { key: "A", text: "interested", isCorrect: false },
+                    { key: "B", text: "into", isCorrect: true },
+                    { key: "C", text: "keen", isCorrect: false },
+                    { key: "D", text: "fond", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Lan rất thích làm vườn vào thời gian rảnh rỗi.",
+                    step2: "Phân tích từ vựng & giới từ đi kèm:\nA. interested + in: thích/quan tâm\nB. be into + N/V-ing: rất thích cái gì\nC. keen + on: đam mê\nD. fond + of: thích",
+                    step3: "Tại sao B đúng: Sau chỗ trống không có giới từ (in/on/of), cấu trúc 'be into + V-ing' hoàn toàn phù hợp về ngữ pháp và nghĩa.",
+                    step4: "Tại sao A, C, D sai: Thiếu giới từ đi kèm bắt buộc (interested IN, keen ON, fond OF)."
+                }
+            },
+            {
+                id: 10,
+                section: "III. MULTIPLE CHOICE - Ngữ pháp & Từ vựng",
+                question: "Dang likes painting, ______ yesterday he decided to join the arts and crafts club.",
+                options: [
+                    { key: "A", text: "so", isCorrect: true },
+                    { key: "B", text: "therefore", isCorrect: false },
+                    { key: "C", text: "but", isCorrect: false },
+                    { key: "D", text: "and", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Đăng thích vẽ tranh, vì vậy hôm qua bạn ấy đã quyết định tham gia câu lạc bộ mỹ thuật và thủ công.",
+                    step2: "Phân tích các từ nối:\nA. so (conj): vì vậy (chỉ kết quả, đứng sau dấu phẩy)\nB. therefore (adv): do đó (thường đứng sau dấu chấm phẩy hoặc đầu câu)\nC. but (conj): nhưng (chỉ sự đối lập)\nD. and (conj): và (bổ sung thông tin)",
+                    step3: "Tại sao A đúng: 'so' nối hai mệnh đề chỉ quan hệ nguyên nhân - kết quả và đứng sau dấu phẩy.",
+                    step4: "Tại sao B, C, D sai: 'therefore' sai quy tắc dùng dấu câu; 'but' sai nghĩa; 'and' không thể hiện rõ quan hệ hệ quả."
+                }
+            },
+            {
+                id: 11,
+                section: "III. MULTIPLE CHOICE - Ngữ pháp & Từ vựng",
+                question: "She tries to focus more on her studies; ______, she won't pass her exams.",
+                options: [
+                    { key: "A", text: "therefore", isCorrect: false },
+                    { key: "B", text: "otherwise", isCorrect: true },
+                    { key: "C", text: "but", isCorrect: false },
+                    { key: "D", text: "moreover", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Cô ấy cố gắng tập trung hơn vào việc học; nếu không, cô ấy sẽ không thi đỗ.",
+                    step2: "Phân tích trạng từ liên kết:\nA. therefore: do đó\nB. otherwise: nếu không thì\nC. but: nhưng\nD. moreover: hơn thế nữa",
+                    step3: "Tại sao B đúng: 'otherwise' diễn tả hậu quả nếu điều ở mệnh đề trước không xảy ra.",
+                    step4: "Tại sao A, C, D sai: Không phù hợp với logic điều kiện - hậu quả tiêu cực."
+                }
+            },
+            {
+                id: 12,
+                section: "III. MULTIPLE CHOICE - Ngữ pháp & Từ vựng",
+                question: "Parents in our village don't put much pressure ______ their children to do well at school.",
+                options: [
+                    { key: "A", text: "under", isCorrect: false },
+                    { key: "B", text: "on", isCorrect: true },
+                    { key: "C", text: "to", isCorrect: false },
+                    { key: "D", text: "above", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Bố mẹ ở làng chúng tôi không đặt nhiều áp lực lên con cái để học giỏi ở trường.",
+                    step2: "Phân tích cụm từ cố định (Collocation):\nCụm từ: 'put pressure ON somebody' (đặt áp lực lên ai).",
+                    step3: "Tại sao B đúng: Đúng cấu trúc cố định 'put pressure on'.",
+                    step4: "Tại sao A, C, D sai: Sai giới từ đi kèm với 'put pressure'."
+                }
+            },
+            {
+                id: 13,
+                section: "III. MULTIPLE CHOICE - Ngữ pháp & Từ vựng",
+                question: "Nam ______ the Internet a lot to find useful information for his studying.",
+                options: [
+                    { key: "A", text: "surfs", isCorrect: true },
+                    { key: "B", text: "types", isCorrect: false },
+                    { key: "C", text: "checks", isCorrect: false },
+                    { key: "D", text: "looks up", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Nam lướt Internet rất nhiều để tìm thông tin hữu ích cho việc học.",
+                    step2: "Phân tích động từ đi với 'the Internet':\nA. surf the Internet: lướt mạng Internet\nB. type: gõ phím\nC. check: kiểm tra\nD. look up: tra cứu (từ điển)",
+                    step3: "Tại sao A đúng: 'surf the Internet' là kết hợp từ tự nhiên nhất trong tiếng Anh.",
+                    step4: "Tại sao B, C, D sai: Không tạo thành cụm từ chuẩn với 'the Internet'."
+                }
+            },
+            {
+                id: 14,
+                section: "III. MULTIPLE CHOICE - Ngữ pháp & Từ vựng",
+                question: "The children are so excited to learn how to ______ crafts using wastepaper and ice-cream sticks.",
+                options: [
+                    { key: "A", text: "invent", isCorrect: false },
+                    { key: "B", text: "recycle", isCorrect: false },
+                    { key: "C", text: "make", isCorrect: true },
+                    { key: "D", text: "draw", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Bọn trẻ rất hào hứng học cách làm đồ thủ công bằng giấy vụn và que kem.",
+                    step2: "Phân tích kết hợp từ (Collocation):\nA. invent: phát minh\nB. recycle: tái chế\nC. make crafts: làm đồ thủ công\nD. draw: vẽ",
+                    step3: "Tại sao C đúng: Cụm từ chuẩn trong tiếng Anh là 'make crafts'.",
+                    step4: "Tại sao A, B, D sai: Không đi kèm tạo thành cụm nghĩa 'làm đồ thủ công'."
+                }
+            },
+            {
+                id: 15,
+                section: "III. MULTIPLE CHOICE - Ngữ pháp & Từ vựng",
+                question: "Mono danced ______ than Mr. Long.",
+                options: [
+                    { key: "A", text: "beautiful", isCorrect: false },
+                    { key: "B", text: "more beautiful", isCorrect: false },
+                    { key: "C", text: "beautifully", isCorrect: false },
+                    { key: "D", text: "more beautifully", isCorrect: true }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Mono nhảy đẹp hơn thầy Long.",
+                    step2: "Phân tích ngữ pháp So sánh hơn của Trạng từ:\nĐộng từ 'danced' cần trạng từ bổ nghĩa (beautifully). Vì có 'than' nên dùng so sánh hơn của trạng từ dài: 'more beautifully'.",
+                    step3: "Tại sao D đúng: Đúng dạng so sánh hơn của trạng từ bổ nghĩa cho hành động 'danced'.",
+                    step4: "Tại sao A, B, C sai: A và B là tính từ (sai loại từ); C chưa có dạng so sánh hơn 'more'."
+                }
+            },
+            {
+                id: 16,
+                section: "III. MULTIPLE CHOICE - Ngữ pháp & Từ vựng",
+                question: "She felt tired. ______, she had to finish her homework.",
+                options: [
+                    { key: "A", text: "However", isCorrect: true },
+                    { key: "B", text: "So", isCorrect: false },
+                    { key: "C", text: "Otherwise", isCorrect: false },
+                    { key: "D", text: "Therefore", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Cô ấy cảm thấy mệt mỏi. Tuy nhiên, cô ấy vẫn phải hoàn thành bài tập về nhà.",
+                    step2: "Phân tích nghĩa các trạng từ liên kết:\nA. However: Tuy nhiên (chỉ sự nhượng bộ/đối lập)\nB. So: Vì vậy\nC. Otherwise: Nếu không thì\nD. Therefore: Do đó",
+                    step3: "Tại sao A đúng: 'However' diễn tả ý trái ngược giữa việc mệt mỏi và vẫn phải làm bài tập.",
+                    step4: "Tại sao B, C, D sai: Khác biệt về logic nguyên nhân/kết quả."
+                }
+            },
+            {
+                id: 17,
+                section: "III. MULTIPLE CHOICE - Ngữ pháp & Từ vựng",
+                question: "Children in the countryside usually ______ cattle in the field.",
+                options: [
+                    { key: "A", text: "raise", isCorrect: false },
+                    { key: "B", text: "pick", isCorrect: false },
+                    { key: "C", text: "herd", isCorrect: true },
+                    { key: "D", text: "load", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Trẻ em ở nông thôn thường chăn gia súc trên đồng.",
+                    step2: "Phân tích từ vựng:\nA. raise: nuôi dưỡng\nB. pick: hái, chọn\nC. herd cattle: chăn dắt gia súc (trâu, bò)\nD. load: chất/chở hàng",
+                    step3: "Tại sao C đúng: 'herd cattle' có nghĩa chính xác là chăn giữ trâu bò trên đồng cỏ.",
+                    step4: "Tại sao A, B, D sai: Không mang hành động chăn thả trên đồng ruộng."
+                }
+            },
+            {
+                id: 18,
+                section: "III. MULTIPLE CHOICE - Ngữ pháp & Từ vựng",
+                question: "As a mental exercise, origami can help increase ______.",
+                options: [
+                    { key: "A", text: "health", isCorrect: false },
+                    { key: "B", text: "stress", isCorrect: false },
+                    { key: "C", text: "creativity", isCorrect: true },
+                    { key: "D", text: "balance", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Như một bài tập trí óc, nghệ thuật gấp giấy origami có thể giúp gia tăng sự sáng tạo.",
+                    step2: "Phân tích danh từ nghĩa phù hợp:\nA. health: sức khỏe\nB. stress: căng thẳng\nC. creativity: sự sáng tạo\nD. balance: sự cân bằng",
+                    step3: "Tại sao C đúng: Gấp giấy Origami kích thích tư duy nghệ thuật và sự sáng tạo.",
+                    step4: "Tại sao A, B, D sai: Không phản ánh đúng lợi ích trí óc cốt lõi của môn Origami."
+                }
+            },
+            {
+                id: 19,
+                section: "III. MULTIPLE CHOICE - Ngữ pháp & Từ vựng",
+                question: "She is trying to work ______ for her upcoming exam.",
+                options: [
+                    { key: "A", text: "more hardly", isCorrect: false },
+                    { key: "B", text: "hardly", isCorrect: false },
+                    { key: "C", text: "hardlier", isCorrect: false },
+                    { key: "D", text: "harder", isCorrect: true }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Cô ấy đang cố gắng học tập/làm việc chăm chỉ hơn cho kỳ thi sắp tới.",
+                    step2: "Phân tích trạng từ 'hard':\n- 'hard' (chăm chỉ) -> trạng từ so sánh hơn là 'harder'.\n- 'hardly' có nghĩa là 'hầu như không' (sai nghĩa).",
+                    step3: "Tại sao D đúng: 'harder' là dạng so sánh hơn chính xác của trạng từ 'hard'.",
+                    step4: "Tại sao A, B, C sai: 'hardly' sai nghĩa hoàn toàn; 'more hardly' và 'hardlier' không tồn tại trong ngữ pháp tiếng Anh."
+                }
+            },
+            {
+                id: 20,
+                section: "III. MULTIPLE CHOICE - Ngữ pháp & Từ vựng",
+                question: "Our class has a(n) ______, and we often post questions there to discuss.",
+                options: [
+                    { key: "A", text: "office", isCorrect: false },
+                    { key: "B", text: "forum", isCorrect: true },
+                    { key: "C", text: "club", isCorrect: false },
+                    { key: "D", text: "social media", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Lớp chúng tôi có một diễn đàn, và chúng tôi thường đăng câu hỏi lên đó để thảo luận.",
+                    step2: "Phân tích từ vựng:\nA. office: văn phòng\nB. forum: diễn đàn (nơi đăng bài/post câu hỏi)\nC. club: câu lạc bộ\nD. social media: mạng xã hội (không đi trực tiếp với 'a')",
+                    step3: "Tại sao B đúng: 'forum' khớp với hành động 'post questions' (đăng câu hỏi thảo luận).",
+                    step4: "Tại sao A, C, D sai: Không phù hợp ngữ cảnh hành động thảo luận bài học trực tuyến."
+                }
+            },
+
+            // IV. Sign & Notice (21-22)
+            {
+                id: 21,
+                section: "IV. SIGN & NOTICE - Biển báo & Thông báo",
+                question: "What does the sign say? ⚠️ (Hình biển báo xe ô tô bị trơn trượt văng đường)",
+                options: [
+                    { key: "A", text: "Be careful as the road is narrow ahead.", isCorrect: false },
+                    { key: "B", text: "Be careful as there is ice on the street.", isCorrect: false },
+                    { key: "C", text: "Be careful when driving as the road is bumpy.", isCorrect: false },
+                    { key: "D", text: "Be careful when driving as the road is slippery.", isCorrect: true }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Biển báo này có ý nghĩa gì?",
+                    step2: "Phân tích nghĩa các phương án:\nA. Cẩn thận vì đường phía trước hẹp.\nB. Cẩn thận vì có băng trên đường.\nC. Cẩn thận khi lái xe vì đường gập gềnh.\nD. Cẩn thận khi lái xe vì đường trơn trượt.",
+                    step3: "Tại sao D đúng: Biển báo giao hình chiếc xe với vệt bánh xe ngoằn ngoèo cảnh báo 'Slippery road' (Đường trơn trượt).",
+                    step4: "Tại sao A, B, C sai: Mô tả không đúng ký hiệu giao thông tiêu chuẩn của biển báo."
+                }
+            },
+            {
+                id: 22,
+                section: "IV. SIGN & NOTICE - Biển báo & Thông báo",
+                question: "What does the notice tell you to do? 📋 ['ATTENTION CUSTOMER: This store is now closed. Please visit www.chm.com to find your nearest store']",
+                options: [
+                    { key: "A", text: "Please visit the website and shop online.", isCorrect: false },
+                    { key: "B", text: "This store will be moved to the nearest location.", isCorrect: false },
+                    { key: "C", text: "You should pay attention when you find the nearest store.", isCorrect: false },
+                    { key: "D", text: "You can visit the website to find the nearest location that is open.", isCorrect: true }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Thông báo này bảo bạn làm gì?",
+                    step2: "Dịch thông báo: 'Chú ý quý khách: Cửa hàng này hiện đã đóng cửa. Vui lòng truy cập www.chm.com để tìm cửa hàng gần nhất'.",
+                    step3: "Tại sao D đúng: Thông báo hướng dẫn khách hàng vào trang web để tìm chi nhánh gần nhất còn mở cửa.",
+                    step4: "Tại sao A, B, C sai: A sai vì không bảo mua trực tuyến; B sai thông tin di dời; C diễn đạt sai ý."
+                }
+            },
+
+            // V. Everyday Communication (23-25)
+            {
+                id: 23,
+                section: "V. EVERYDAY COMMUNICATION - Giao tiếp hàng ngày",
+                question: "- \"What a lovely painting you have!\"\n- \"______\"",
+                options: [
+                    { key: "A", text: "Thank you. It's nice of you to say so.", isCorrect: true },
+                    { key: "B", text: "Really? I think so.", isCorrect: false },
+                    { key: "C", text: "Can you say that again?", isCorrect: false },
+                    { key: "D", text: "I love it too.", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch hội thoại: - 'Bức tranh của bạn đẹp quá!' - '______'",
+                    step2: "Phân tích văn hóa giao tiếp: Khi nhận được lời khen, câu đáp lại lịch sự chuẩn mực luôn là cảm ơn.",
+                    step3: "Tại sao A đúng: 'Thank you. It's nice of you to say so' (Cảm ơn bạn. Bức tranh đẹp là nhờ lời khen ngợi của bạn).",
+                    step4: "Tại sao B, C, D sai: Thiếu lịch sự hoặc kiêu ngạo, không phù hợp văn hóa giao tiếp."
+                }
+            },
+            {
+                id: 24,
+                section: "V. EVERYDAY COMMUNICATION - Giao tiếp hàng ngày",
+                question: "- \"Would you like to join our Arts club this Sunday?\"\n- \"______\"",
+                options: [
+                    { key: "A", text: "I don't think so.", isCorrect: false },
+                    { key: "B", text: "I agree with you.", isCorrect: false },
+                    { key: "C", text: "I'd love to. Thanks.", isCorrect: true },
+                    { key: "D", text: "You did a great job.", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch hội thoại: - 'Bạn có muốn tham gia CLB Mỹ thuật của chúng tớ vào Chủ nhật này không?' - '______'",
+                    step2: "Phân tích câu mời 'Would you like to...':\nĐáp lại lời mời đồng ý: 'I'd love to' (Tớ rất thích).",
+                    step3: "Tại sao C đúng: Phản hồi đồng ý nhận lời mời tự nhiên và lịch sự.",
+                    step4: "Tại sao A, B, D sai: A quá phũ phàng; B và D lạc chủ đề."
+                }
+            },
+            {
+                id: 25,
+                section: "V. EVERYDAY COMMUNICATION - Giao tiếp hàng ngày",
+                question: "- \"Can you show me how to use Facebook to connect with friends?\"\n- \"______\"",
+                options: [
+                    { key: "A", text: "Yes, you can do it.", isCorrect: false },
+                    { key: "B", text: "Certainly.", isCorrect: true },
+                    { key: "C", text: "That's very kind of you.", isCorrect: false },
+                    { key: "D", text: "Of course not.", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch hội thoại: - 'Bạn có thể chỉ cho tớ cách dùng Facebook để kết nối bạn bè không?' - '______'",
+                    step2: "Phân tích câu yêu cầu trợ giúp 'Can you...':\nSẵn sàng giúp đỡ đáp lại: 'Certainly' (Tất nhiên rồi/Sẵn lòng).",
+                    step3: "Tại sao B đúng: Thể hiện sự đồng ý giúp đỡ rõ ràng, chuẩn mực.",
+                    step4: "Tại sao A, C, D sai: A sai ngữ cảnh; C dùng khi cảm ơn ai đó; D từ chối thô lỗ."
+                }
+            },
+
+            // VI. Cloze Text (26-29)
+            {
+                id: 26,
+                section: "VI. CLOZE TEXT - Điền từ đoạn văn",
+                question: "Many teenagers like to spend their free time (26) ______ video games or chatting online.",
+                options: [
+                    { key: "A", text: "playing", isCorrect: true },
+                    { key: "B", text: "play", isCorrect: false },
+                    { key: "C", text: "to play", isCorrect: false },
+                    { key: "D", text: "to playing", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu: Nhiều thiếu niên thích dành thời gian rảnh của họ để chơi trò chơi điện tử hoặc trò chuyện trực tuyến.",
+                    step2: "Phân tích cấu trúc ngữ pháp:\n'spend + time + V-ing': dành thời gian làm việc gì.",
+                    step3: "Tại sao A đúng: Đúng dạng 'playing' theo công thức spend time V-ing.",
+                    step4: "Tại sao B, C, D sai: Sai cấu trúc ngữ pháp với động từ 'spend'."
+                }
+            },
+            {
+                id: 27,
+                section: "VI. CLOZE TEXT - Điền từ đoạn văn",
+                question: "It's important for teenagers to (27) ______ a balance between study and relaxation.",
+                options: [
+                    { key: "A", text: "create", isCorrect: false },
+                    { key: "B", text: "lose", isCorrect: false },
+                    { key: "C", text: "keep", isCorrect: true },
+                    { key: "D", text: "change", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu: Việc thiếu niên giữ sự cân bằng giữa học tập và giải trí là rất quan trọng.",
+                    step2: "Phân tích Collocation đi với 'a balance':\n'keep a balance': giữ sự cân bằng.",
+                    step3: "Tại sao C đúng: Tạo thành cụm từ chuẩn nghĩa 'giữ sự cân bằng'.",
+                    step4: "Tại sao A, B, D sai: Không ghép thành cụm tự nhiên bằng 'keep'."
+                }
+            },
+            {
+                id: 28,
+                section: "VI. CLOZE TEXT - Điền từ đoạn văn",
+                question: "Some teens choose to take up new hobbies such as photography or learning (28) ______ musical instrument.",
+                options: [
+                    { key: "A", text: "a", isCorrect: true },
+                    { key: "B", text: "the", isCorrect: false },
+                    { key: "C", text: "an", isCorrect: false },
+                    { key: "D", text: "x (không điền)", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu: Một số bạn trẻ chọn học sở thích mới như nhiếp ảnh hoặc học một nhạc cụ.",
+                    step2: "Phân tích mạo từ:\nTừ 'musical' bắt đầu bằng phụ âm /m/, chỉ danh từ số ít chưa xác định -> Dùng mạo từ 'a'.",
+                    step3: "Tại sao A đúng: 'a musical instrument' (một nhạc cụ nói chung).",
+                    step4: "Tại sao B, C, D sai: 'an' chỉ đi với nguyên âm; 'the' dùng cho vật đã xác định."
+                }
+            },
+            {
+                id: 29,
+                section: "VI. CLOZE TEXT - Điền từ đoạn văn",
+                question: "Parents should encourage their children to (29) ______ outdoor activities to stay healthy.",
+                options: [
+                    { key: "A", text: "avoid", isCorrect: false },
+                    { key: "B", text: "join", isCorrect: true },
+                    { key: "C", text: "take", isCorrect: false },
+                    { key: "D", text: "participate", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu: Cha mẹ nên khuyến khích con cái tham gia các hoạt động ngoài trời để giữ sức khỏe.",
+                    step2: "Phân tích động từ:\n'join + N': tham gia vào cái gì (không cần giới từ in).\nChú ý: 'participate' phải đi với giới từ 'in'.",
+                    step3: "Tại sao B đúng: 'join outdoor activities' đúng ngữ pháp vì không có giới từ 'in' đằng sau.",
+                    step4: "Tại sao A, C, D sai: A sai nghĩa (tránh); D thiếu giới từ 'in'."
+                }
+            },
+
+            // VII. Reading Comprehension (30-35)
+            {
+                id: 30,
+                section: "VII. READING COMPREHENSION - Đọc hiểu đoạn văn",
+                question: "What should modern high schools teach teens according to the passage?",
+                options: [
+                    { key: "A", text: "Only arts and music", isCorrect: false },
+                    { key: "B", text: "Maths and science", isCorrect: true },
+                    { key: "C", text: "Business and economics", isCorrect: false },
+                    { key: "D", text: "Sports and physical education", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Theo đoạn văn, các trường cấp 3 hiện đại nên dạy thiếu niên những môn học gì?",
+                    step2: "Tìm thông tin trong bài: Trong bài viết ghi rõ: 'For subjects, schools should teach teens maths and science.'",
+                    step3: "Tại sao B đúng: Khớp 100% với dữ liệu bài đọc đề cập.",
+                    step4: "Tại sao A, C, D sai: Không phải môn học cốt lõi được nêu ở câu đầu bài đọc."
+                }
+            },
+            {
+                id: 31,
+                section: "VII. READING COMPREHENSION - Đọc hiểu đoạn văn",
+                question: "What should teens learn about money?",
+                options: [
+                    { key: "A", text: "How to spend it all", isCorrect: false },
+                    { key: "B", text: "How to use it, save it, and not spend too much", isCorrect: true },
+                    { key: "C", text: "How to lend it to friends", isCorrect: false },
+                    { key: "D", text: "How to hide it from parents", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Thiếu niên nên học điều gì về tiền bạc?",
+                    step2: "Trích dẫn bài đọc: 'Teens should learn about money – how to use it, save it and not spend too much.'",
+                    step3: "Tại sao B đúng: Khớp chính xác với thông tin được liệt kê trong bài.",
+                    step4: "Tại sao A, C, D sai: Thông tin bịa đặt không có trong bài đọc."
+                }
+            },
+            {
+                id: 32,
+                section: "VII. READING COMPREHENSION - Đọc hiểu đoạn văn",
+                question: "What is one way that teens can stay healthy mentioned in the passage?",
+                options: [
+                    { key: "A", text: "Watching television", isCorrect: false },
+                    { key: "B", text: "Skipping meals", isCorrect: false },
+                    { key: "C", text: "Playing video games", isCorrect: false },
+                    { key: "D", text: "Eating good food", isCorrect: true }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Một cách giúp thiếu niên giữ sức khỏe được nhắc đến trong đoạn văn là gì?",
+                    step2: "Trích dẫn bài đọc: 'This means exercising, eating good food and understanding their bodies.'",
+                    step3: "Tại sao D đúng: 'Eating good food' được nêu trực tiếp trong bài.",
+                    step4: "Tại sao A, B, C sai: Đều là hành động tiêu cực hoặc không giúp khỏe mạnh."
+                }
+            },
+            {
+                id: 33,
+                section: "VII. READING COMPREHENSION - Đọc hiểu đoạn văn",
+                question: "Which of these areas of knowledge is NOT mentioned in the text?",
+                options: [
+                    { key: "A", text: "What a particular area needs", isCorrect: false },
+                    { key: "B", text: "How to manage time", isCorrect: true },
+                    { key: "C", text: "How people lived in the past", isCorrect: false },
+                    { key: "D", text: "Why we sometimes worry about things", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Lĩnh vực kiến thức nào DƯỚI ĐÂY KHÔNG ĐƯỢC NHẮC TỚI trong bài đọc?",
+                    step2: "Đối chiếu bài đọc: Bài nhắc tới lịch sử (past), cộng đồng (area needs), tâm lý (feelings/worry), KHÔNG nhắc tới kỹ năng quản lý thời gian (manage time).",
+                    step3: "Tại sao B đúng: Vì 'How to manage time' hoàn toàn không xuất hiện trong văn bản.",
+                    step4: "Tại sao A, C, D sai: Đều có ý tương đương được đề cập trong văn bản bài đọc."
+                }
+            },
+            {
+                id: 34,
+                section: "VII. READING COMPREHENSION - Đọc hiểu đoạn văn",
+                question: "What do you think the writer is saying about this list of things for teens to learn?",
+                options: [
+                    { key: "A", text: "Each school should decide which of these things to teach.", isCorrect: false },
+                    { key: "B", text: "Normal school subjects are still the most important things.", isCorrect: false },
+                    { key: "C", text: "They are all equally important in modern world.", isCorrect: true },
+                    { key: "D", text: "Only skills at home matter.", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Tác giả muốn nói gì về danh sách những điều thiếu niên cần học?",
+                    step2: "Trích dẫn bài đọc: 'These skills for life are as important as subjects.' (Các kỹ năng sống này cũng quan trọng ngang với các môn học).",
+                    step3: "Tại sao C đúng: Tất cả mọi kỹ năng và môn học đều quan trọng như nhau trong thế giới hiện đại.",
+                    step4: "Tại sao A, B, D sai: Không phản ánh đúng quan điểm toàn diện của tác giả."
+                }
+            },
+            {
+                id: 35,
+                section: "VII. READING COMPREHENSION - Đọc hiểu đoạn văn",
+                question: "What is the OPPOSITE meaning of \"creative\" in the context of the passage?",
+                options: [
+                    { key: "A", text: "unimaginative", isCorrect: true },
+                    { key: "B", text: "original", isCorrect: false },
+                    { key: "C", text: "artistic", isCorrect: false },
+                    { key: "D", text: "innovative", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hỏi: Từ nào TRÁI NGHĨA (OPPOSITE) với từ 'creative' (sáng tạo) trong ngữ cảnh đoạn văn?",
+                    step2: "Phân tích từ vựng:\n- creative (adj): sáng tạo\nA. unimaginative (adj): không có óc tưởng tượng/không sáng tạo\nB. original: độc đáo\nC. artistic: nghệ thuật\nD. innovative: đổi mới sáng tạo",
+                    step3: "Tại sao A đúng: 'unimaginative' là từ trái nghĩa hoàn toàn với 'creative'.",
+                    step4: "Tại sao B, C, D sai: B, C, D là các từ đồng nghĩa hoặc cùng hướng nghĩa với 'creative'."
+                }
+            },
+
+            // VIII. Sentence Reordering & Text Completion (36-37)
+            {
+                id: 36,
+                section: "VIII. REORDERING & TEXT COMPLETION - Sắp xếp câu",
+                question: "Put the sentences (a-c) in the correct order to make a logical text:\nMy family and I had planned a fun day hiking in the mountains last weekend. However, things didn't go as planned. ______.\na. The morning started off well, and we were all excited to get outdoors and enjoy nature.\nb. We decided to turn back and head to the nearest shop to buy more water, but by then, we were already too tired to continue hiking.\nc. Unfortunately, halfway through the hike, we realized that we had forgotten to bring enough water for the trip.",
+                options: [
+                    { key: "A", text: "a - b - c", isCorrect: false },
+                    { key: "B", text: "b - a - c", isCorrect: false },
+                    { key: "C", text: "c - a - b", isCorrect: false },
+                    { key: "D", text: "a - c - b", isCorrect: true }
+                ],
+                explanation: {
+                    step1: "Dịch logic diễn biến câu chuyện:\n(a) Buổi sáng bắt đầu tốt đẹp, mọi người hào hứng...\n(c) Thật không may, đi được nửa đường thì nhận ra quên mang đủ nước...\n(b) Chúng tôi quyết định quay lại cửa hàng mua nước nhưng lúc đó đã quá mệt...",
+                    step2: "Phân tích trình tự thời gian & nguyên nhân kết quả: Bắt đầu suôn sẻ (a) -> Gặp sự cố thiếu nước (c) -> Quyết định bỏ cuộc quay về (b).",
+                    step3: "Tại sao D đúng: Thứ tự a - c - b tạo nên mạch câu chuyện hoàn toàn hợp lý.",
+                    step4: "Tại sao A, B, C sai: Lộn xộn thứ tự thời gian và diễn biến logic."
+                }
+            },
+            {
+                id: 37,
+                section: "VIII. REORDERING & TEXT COMPLETION - Sắp xếp câu",
+                question: "Choose the sentence that can end the text (in question 36) most appropriately.",
+                options: [
+                    { key: "A", text: "We made a note to always double-check our supplies for future hikes.", isCorrect: true },
+                    { key: "B", text: "The mountain was beautiful and worth every moment of the hike.", isCorrect: false },
+                    { key: "C", text: "After all, it was a great way to start a new hobby.", isCorrect: false },
+                    { key: "D", text: "We finally asked another hiker for directions back to the car.", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu kết bài phù hợp nhất cho bài học rút ra sau chuyến đi hiking hỏng ở Q36.",
+                    step2: "Phân tích các phương án:\nA. Chúng tôi ghi nhớ luôn phải kiểm tra kỹ đồ dùng cho các chuyến đi sau.\nB. Ngọn núi rất đẹp...\nC. Dù sao đây cũng là cách hay để bắt đầu sở thích...\nD. Chúng tôi hỏi đường...",
+                    step3: "Tại sao A đúng: Là câu rút ra kinh nghiệm xương máu sau sự cố quên mang đủ nước.",
+                    step4: "Tại sao B, C, D sai: B và C mâu thuẫn với việc chuyến đi thất bại; D không phải kết luận hay."
+                }
+            },
+
+            // IX. Sentence Insertion (38-41)
+            {
+                id: 38,
+                section: "IX. SENTENCE INSERTION - Điền câu vào đoạn văn",
+                question: "One popular leisure activity is reading. (38) ______. Many people find that reading allows them to escape into different worlds and learn new things.",
+                options: [
+                    { key: "A", text: "These activities help us relax and develop new skills", isCorrect: false },
+                    { key: "B", text: "Watching movies can be a fun way to spend a rainy afternoon", isCorrect: false },
+                    { key: "C", text: "Sports encourage teamwork and healthy competition", isCorrect: false },
+                    { key: "D", text: "Reading can be a wonderful way to improve our imagination", isCorrect: true }
+                ],
+                explanation: {
+                    step1: "Dịch đoạn văn: Một hoạt động rảnh rỗi phổ biến là đọc sách. (38) ______. Nhiều người thấy rằng đọc sách giúp họ thoát vào thế giới khác.",
+                    step2: "Phân tích chủ đề: Đoạn này đang nói về việc đọc sách (reading).",
+                    step3: "Tại sao D đúng: 'Reading can be a wonderful way...' nối tiếp trực tiếp chủ đề đọc sách.",
+                    step4: "Tại sao A, B, C sai: B nói về xem phim, C nói về thể thao, A là câu tổng kết."
+                }
+            },
+            {
+                id: 39,
+                section: "IX. SENTENCE INSERTION - Điền câu vào đoạn văn",
+                question: "Another common leisure activity is sports. (39) ______. Whether playing soccer, basketball, or swimming, sports provide a great way to stay fit.",
+                options: [
+                    { key: "A", text: "These activities help us relax and develop new skills", isCorrect: false },
+                    { key: "B", text: "Watching movies can be a fun way to spend a rainy afternoon", isCorrect: false },
+                    { key: "C", text: "Sports encourage teamwork and healthy competition", isCorrect: true },
+                    { key: "D", text: "Reading can be a wonderful way to improve our imagination", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch đoạn văn: Một hoạt động rảnh rỗi phổ biến khác là thể thao. (39) ______.",
+                    step2: "Phân tích chủ đề: Đoạn đang bàn về thể thao (sports).",
+                    step3: "Tại sao C đúng: 'Sports encourage teamwork...' mở rộng ý nghĩa tích cực của thể thao.",
+                    step4: "Tại sao A, B, D sai: Lạc chủ đề sang lĩnh vực khác."
+                }
+            },
+            {
+                id: 40,
+                section: "IX. SENTENCE INSERTION - Điền câu vào đoạn văn",
+                question: "Many people also enjoy watching movies or TV shows during their free time. (40) ______. Streaming services have made it easier to access a wide variety of films.",
+                options: [
+                    { key: "A", text: "These activities help us relax and develop new skills", isCorrect: false },
+                    { key: "B", text: "Watching movies can be a fun way to spend a rainy afternoon", isCorrect: true },
+                    { key: "C", text: "Sports encourage teamwork and healthy competition", isCorrect: false },
+                    { key: "D", text: "Reading can be a wonderful way to improve our imagination", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch đoạn văn: Nhiều người thích xem phim hoặc chương trình TV lúc rảnh. (40) ______.",
+                    step2: "Phân tích chủ đề: Nói về xem phim (watching movies).",
+                    step3: "Tại sao B đúng: 'Watching movies can be a fun way...' bổ sung ý hoàn hảo.",
+                    step4: "Tại sao A, C, D sai: Không đúng đối tượng xem phim."
+                }
+            },
+            {
+                id: 41,
+                section: "IX. SENTENCE INSERTION - Điền câu vào đoạn văn",
+                question: "Lastly, hobbies like gardening, painting, or cooking can be very fulfilling. (41) ______. These activities not only keep us busy but also allow us to express creativity.",
+                options: [
+                    { key: "A", text: "These activities help us relax and develop new skills", isCorrect: true },
+                    { key: "B", text: "Watching movies can be a fun way to spend a rainy afternoon", isCorrect: false },
+                    { key: "C", text: "Sports encourage teamwork and healthy competition", isCorrect: false },
+                    { key: "D", text: "Reading can be a wonderful way to improve our imagination", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch đoạn văn: Cuối cùng, các sở thích như làm vườn, vẽ hay nấu ăn... (41) ______.",
+                    step2: "Phân tích đại từ thay thế: 'These activities' câu A thay thế cho 'gardening, painting, cooking'.",
+                    step3: "Tại sao A đúng: 'These activities help us relax and develop new skills' gắn kết tự nhiên.",
+                    step4: "Tại sao B, C, D sai: Đã dùng ở các vị trí câu trước."
+                }
+            },
+
+            // X. Sentence Transformation & Combination (42-45)
+            {
+                id: 42,
+                section: "X. SENTENCE TRANSFORMATION - Viết lại câu",
+                question: "It rained heavily yesterday morning. We went to school on time.",
+                options: [
+                    { key: "A", text: "Because we went to school on time, it rained heavily yesterday morning.", isCorrect: false },
+                    { key: "B", text: "Although it rained heavily yesterday morning, we went to school on time.", isCorrect: true },
+                    { key: "C", text: "It rained heavily yesterday morning, so we went to school on time.", isCorrect: false },
+                    { key: "D", text: "We went to school on time, but it rained heavily yesterday morning.", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch 2 câu gốc: Trời mưa rất to sáng qua. Chúng tôi đã đến trường đúng giờ.",
+                    step2: "Phân tích quan điểm nhượng bộ (mặc dù... nhưng...):\nCấu trúc: 'Although + Clause 1, Clause 2'.",
+                    step3: "Tại sao B đúng: 'Mặc dù trời mưa to sáng qua, chúng tôi vẫn đến trường đúng giờ' chuẩn nghĩa nhất.",
+                    step4: "Tại sao A, C, D sai: A sai nguyên nhân; C sai từ nối 'so' (vì vậy); D diễn đạt kém tự nhiên."
+                }
+            },
+            {
+                id: 43,
+                section: "X. SENTENCE TRANSFORMATION - Viết lại câu",
+                question: "Mai's sister doesn't speak English as fluently as Mai.",
+                options: [
+                    { key: "A", text: "Mai speaks English more fluent than her sister.", isCorrect: false },
+                    { key: "B", text: "Mai speaks English fluently than her sister.", isCorrect: false },
+                    { key: "C", text: "Mai speaks English more fluently than her sister.", isCorrect: true },
+                    { key: "D", text: "Mai speaks English as fluent as her sister.", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu gốc: Em gái Mai không nói tiếng Anh lưu loát bằng Mai.",
+                    step2: "Chuyển từ so sánh không bằng sang so sánh hơn:\n'Mai nói tiếng Anh lưu loát hơn em gái mình'. Động từ 'speaks' đi với trạng từ 'more fluently'.",
+                    step3: "Tại sao C đúng: 'more fluently than' đúng dạng so sánh hơn của trạng từ.",
+                    step4: "Tại sao A, B, D sai: A dùng tính từ 'fluent' (sai); B thiếu 'more'; D sai nghĩa."
+                }
+            },
+            {
+                id: 44,
+                section: "X. SENTENCE TRANSFORMATION - Viết lại câu",
+                question: "We/ prefer/ watch/ TV/ play/ volleyball.",
+                options: [
+                    { key: "A", text: "We prefer to watching TV than playing volleyball.", isCorrect: false },
+                    { key: "B", text: "We prefer watching TV to playing volleyball.", isCorrect: true },
+                    { key: "C", text: "We prefer watching TV to play volleyball.", isCorrect: false },
+                    { key: "D", text: "We prefer watching TV better than playing volleyball.", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch nghĩa cần viết: Chúng tôi thích xem TV hơn là chơi bóng chuyền.",
+                    step2: "Phân tích cấu trúc 'Prefer':\nCông thức: 'prefer V-ing TO V-ing' (thích làm gì hơn làm gì).",
+                    step3: "Tại sao B đúng: Biến đổi đúng chuẩn cấu trúc 'prefer watching TV to playing volleyball'.",
+                    step4: "Tại sao A, C, D sai: Sai cấu trúc đi kèm với 'prefer'."
+                }
+            },
+            {
+                id: 45,
+                section: "X. SENTENCE TRANSFORMATION - Viết lại câu",
+                question: "Lan want/ join/ school music club/ however/ can't sing or play any instruments.",
+                options: [
+                    { key: "A", text: "Lan wants to join the school music club; however, she can't sing or play any instruments.", isCorrect: true },
+                    { key: "B", text: "Lan wanted to join the school music club, however she can't sing or play any instruments.", isCorrect: false },
+                    { key: "C", text: "Lan wants joining the school music club, however she can't sing or play any instruments.", isCorrect: false },
+                    { key: "D", text: "Lan wanted join the school music club. However, she can't sing or play any instruments.", isCorrect: false }
+                ],
+                explanation: {
+                    step1: "Dịch câu hoàn chỉnh: Lan muốn tham gia câu lạc bộ âm nhạc của trường; tuy nhiên, cô ấy không thể hát hay chơi bất kỳ nhạc cụ nào.",
+                    step2: "Phân tích ngữ pháp:\n- 'want + to V': Lan wants to join...\n- Dấu câu với 'however': '; however,' hoặc '. However,'.",
+                    step3: "Tại sao A đúng: Đúng cấu trúc 'wants to join' và cách chia dấu câu chuẩn với trạng từ 'however'.",
+                    step4: "Tại sao B, C, D sai: B dùng sai dấu phẩy cho 'however'; C sai 'wants joining'; D thiếu 'to' sau 'wanted'."
+                }
+            }
+        ];
+
+        // RANDOMLY SHUFFLE OPTIONS ARRAY FUNCTION
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // STORE USER RESPONSES
+        const userAnswers = {};
+
+        // RENDER ALL QUESTIONS ON LOAD
+        function renderQuiz() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+
+            quizData.forEach((q, index) => {
+                // Shuffle options for gamification
+                const shuffledOptions = shuffleArray(q.options);
+
+                const qCard = document.createElement('div');
+                qCard.className = "bg-white rounded-2xl p-5 md:p-7 shadow-md border-2 border-gray-100 transition hover:shadow-lg relative";
+                qCard.id = `question-card-${q.id}`;
+
+                let optionsHTML = '';
+                shuffledOptions.forEach(opt => {
+                    optionsHTML += `
+                        <button 
+                            id="btn-q${q.id}-${opt.key}"
+                            onclick="selectAnswer(${q.id}, '${opt.key}', ${opt.isCorrect})"
+                            class="btn-option w-full text-left p-4 my-2 border-2 border-gray-200 rounded-2xl font-bold text-gray-700 bg-gray-50 flex items-center justify-between group"
+                        >
+                            <span class="flex items-center gap-3">
+                                <span class="w-8 h-8 rounded-xl bg-purple-200 text-purple-800 flex items-center justify-center font-black text-sm group-hover:bg-purple-600 group-hover:text-white transition">
+                                    ${opt.key}
+                                </span>
+                                <span class="text-sm md:text-base">${opt.text}</span>
+                            </span>
+                            <span class="status-icon text-xl"></span>
+                        </button>
+                    `;
+                });
+
+                qCard.innerHTML = `
+                    <div class="mb-3 flex items-center justify-between border-b pb-2">
+                        <span class="text-xs font-black uppercase tracking-wider text-purple-600 bg-purple-50 px-3 py-1 rounded-full">
+                            ${q.section}
+                        </span>
+                        <span class="text-xs font-bold text-gray-400">Câu ${index + 1}/45</span>
+                    </div>
+
+                    <h3 class="text-base md:text-lg font-extrabold text-gray-800 mb-4 whitespace-pre-line leading-relaxed">
+                        <span class="text-purple-600">Q${index + 1}:</span> ${q.question}
+                    </h3>
+
+                    <div class="space-y-1">
+                        ${optionsHTML}
+                    </div>
+
+                    <!-- EXPLANATION BOX (HIDDEN UNTIL ANSWERED) -->
+                    <div id="explanation-${q.id}" class="hidden mt-6 p-5 bg-indigo-50/90 border-2 border-indigo-200 rounded-2xl text-xs md:text-sm text-indigo-950 space-y-3">
+                        <div class="font-black text-indigo-900 text-sm md:text-base flex items-center gap-2 border-b border-indigo-200 pb-2">
+                            💡 GIẢI THÍCH CHI TIẾT TỪ MS LÊ HẰNG:
+                        </div>
+                        <p class="font-semibold text-gray-800">📌 <span class="font-bold">Bước 1:</span> ${q.explanation.step1}</p>
+                        <div class="font-semibold text-gray-800 whitespace-pre-line bg-white/70 p-3 rounded-xl border border-indigo-100">📌 <span class="font-bold">Bước 2:</span>\n${q.explanation.step2}</div>
+                        <p class="font-semibold text-emerald-800 bg-emerald-100/60 p-2.5 rounded-xl border border-emerald-200">✅ <span class="font-bold">Bước 3 (Tại sao đúng):</span> ${q.explanation.step3}</p>
+                        <p class="font-semibold text-rose-800 bg-rose-100/60 p-2.5 rounded-xl border border-rose-200">❌ <span class="font-bold">Bước 4 (Tại sao sai):</span> ${q.explanation.step4}</p>
+                    </div>
+                `;
+
+                container.appendChild(qCard);
+            });
+        }
+
+        // HANDLE USER SELECTION
+        function selectAnswer(questionId, selectedKey, isCorrect) {
+            // Prevent re-selection if already answered
+            if (userAnswers[questionId] !== undefined) return;
+
+            userAnswers[questionId] = { selectedKey, isCorrect };
+
+            const qObj = quizData.find(q => q.id === questionId);
+
+            // Disable all buttons in this question
+            qObj.options.forEach(opt => {
+                const btn = document.getElementById(`btn-q${questionId}-${opt.key}`);
+                if (btn) {
+                    btn.disabled = true;
+                    btn.classList.add('cursor-not-allowed', 'opacity-80');
+                }
+            });
+
+            const selectedBtn = document.getElementById(`btn-q${questionId}-${selectedKey}`);
+
+            if (isCorrect) {
+                selectedBtn.classList.add('btn-correct');
+                selectedBtn.querySelector('.status-icon').innerText = '🎉';
+                playDingSound();
+                triggerConfetti();
+            } else {
+                selectedBtn.classList.add('btn-wrong');
+                selectedBtn.querySelector('.status-icon').innerText = '❌';
+                playWrongSound();
+
+                // Highlight correct button
+                const correctOpt = qObj.options.find(o => o.isCorrect);
+                const correctBtn = document.getElementById(`btn-q${questionId}-${correctOpt.key}`);
+                if (correctBtn) {
+                    correctBtn.classList.add('btn-correct');
+                    correctBtn.querySelector('.status-icon').innerText = '✅';
+                }
+            }
+
+            // Show explanation immediately
+            const expBox = document.getElementById(`explanation-${questionId}`);
+            if (expBox) expBox.classList.remove('hidden');
+
+            // Update Progress Bar
+            updateProgress();
+        }
+
+        // UPDATE PROGRESS BAR
+        function updateProgress() {
+            const count = Object.keys(userAnswers).length;
+            document.getElementById('answered-count').innerText = count;
+            const percentage = (count / 45) * 100;
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+        }
+
+        // SUBMIT QUIZ AND DISPLAY MODAL
+        function submitQuiz() {
+            const answeredCount = Object.keys(userAnswers).length;
+            
+            if (answeredCount < 45) {
+                if (!confirm(`Con mới hoàn thành ${answeredCount}/45 câu. Con có chắc chắn muốn nộp bài ngay không?`)) {
+                    return;
+                }
+            }
+
+            let correctCount = 0;
+            Object.values(userAnswers).forEach(ans => {
+                if (ans.isCorrect) correctCount++;
+            });
+
+            const scorePercent = Math.round((correctCount / 45) * 100);
+
+            document.getElementById('score-text').innerText = correctCount;
+            document.getElementById('percentage-text').innerText = `(${scorePercent}%)`;
+
+            const feedbackText = document.getElementById('feedback-text');
+            const emojiText = document.getElementById('modal-emoji');
+
+            // Dynamic Feedback Messages based on score
+            if (scorePercent < 50) {
+                emojiText.innerText = '💪';
+                feedbackText.innerText = "Điểm lần này chưa cao lắm, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!";
+            } else if (scorePercent <= 80) {
+                emojiText.innerText = '👏';
+                feedbackText.innerText = "Con đã có tiến bộ khá ổn rồi, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!";
+            } else {
+                emojiText.innerText = '🌟';
+                feedbackText.innerText = "Làm tốt lắm, con cố gắng rinh điểm 10 ở lần sau nha!";
+            }
+
+            document.getElementById('result-modal').classList.remove('hidden');
+            triggerConfetti();
+        }
+
+        function closeModal() {
+            document.getElementById('result-modal').classList.add('hidden');
+        }
+
+        // INITIALIZE ON WINDOW LOAD
+        window.onload = function() {
+            renderQuiz();
+        };
+    </script>
+</body>
+</html>
